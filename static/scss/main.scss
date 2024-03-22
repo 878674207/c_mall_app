@@ -1,0 +1,55 @@
+.but-bottom {
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding: 8px 12px 42px;
+    background: #fff;
+}
+
+// 表单控件
+.com-form {
+
+    .form-item-box {
+        // 表单块的样式  白底
+        background: #FFFFFF;
+        border-radius: 12rpx;
+        padding: 0 30rpx;
+        margin-bottom: 30rpx;
+        border-radius: 18px 18px 0px 0px;
+
+        .u-form-item__body__left__content__label {
+            font-size: 16px !important;
+            font-family: PingFangSC, PingFang SC !important;
+            font-weight: 500 !important;
+            color: #363636 !important;
+            line-height: 22px !important;
+        }
+
+        .u-form-item__body {
+            padding: 19px 0;
+            align-items: flex-start !important;
+        }
+
+        .uni-input-input {
+            font-size: 16px;
+            font-family: PingFangSC, PingFang SC;
+            font-weight: 400;
+            color: #363636;
+            line-height: 22px;
+        }
+
+        .u-textarea {
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        .u-form-item__body__right__message {
+            // text-align: right !important;
+        }
+
+        .select-input-box {
+            display: flex;
+        }
+    }
+}
