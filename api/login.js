@@ -6,12 +6,10 @@ import { encrypt } from '@/utils/jsencrypt'
 export function login(phone, code, salesUserId, openId) {
   const data = {
     phone,
-    code,
-    salesUserId,
-    openId
+    code
   }
   return request({
-    'url': '/custom/wechat/login',
+    'url': '/customer/login',
     headers: {
       isToken: false
     },
@@ -23,7 +21,7 @@ export function login(phone, code, salesUserId, openId) {
 // 获取用户详细信息
 export function getInfo() {
   return request({
-    'url': '/getInfo',
+    'url': '/customer/user-info',
     'method': 'get'
   })
 }
@@ -51,7 +49,7 @@ export function getCodeImg() {
 // 获取验证码
 export function getCodeSms(params) {
   return request({
-    'url': '/custom/wechat/sendSms',
+    'url': '/customer/send-sms',
     headers: {
       isToken: false
     },
