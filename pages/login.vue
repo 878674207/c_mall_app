@@ -1,7 +1,7 @@
 <template>
   <view class="normal-login-container">
     <view class="logo-content align-center justify-center flex">
-      <image style="width: 300rpx;" src="@/static/logos.png" mode="widthFix">
+      <image style="width: 300rpx;" src="@/static/logo200.png" mode="widthFix">
       </image>
     </view>
     <!-- 手机号验证码登录 -->
@@ -36,7 +36,7 @@
       <view @click="handlePrivacy" class="text-orange">《隐私协议》</view>
     </view>
     <view class="texttig">
-      <view>本应用由橙心养老提供，账号信息相互关联</view>
+      <view>本应用由cmall电商提供，账号信息相互关联</view>
     </view>
   </view>
 </template>
