@@ -5,8 +5,7 @@
     }">
     <!--顶部个人信息栏-->
     <view class="header-section">
-      <view class="header-title"> </view>
-      <view class="flex padding justify-between">
+      <view class="flex justify-between">
         <view class="flex align-center">
           <view v-if="!avatar" class="cu-avatar xl round bg-white">
             <view class="iconfont icon-people text-gray icon"></view>
@@ -22,9 +21,9 @@
             </view>
           </view>
         </view>
-        <view @click="handleToInfo" class="flex align-center">
+        <!-- <view @click="handleToInfo" class="flex align-center">
           <u-icon :name="`${imgBasePath}/static/images/icons/icon-set.png`" size="24"></u-icon>
-        </view>
+        </view> -->
       </view>
     </view>
     <view class="content-section">
@@ -46,18 +45,7 @@
 
     <view class="content-section">
       <view class="main-model">
-        <!-- <view class="action-item" @click="handleJiaoLiuQun">
-          <view class="iconfont icon-friendfill text-pink icon"></view>
-          <text class="text">交流群</text>
-        </view>
-        <view class="action-item" @click="handleBuilding">
-          <view class="iconfont icon-service text-blue icon"></view>
-          <text class="text">在线客服</text>
-        </view>
-        <view class="action-item" @click="handleBuilding">
-          <view class="iconfont icon-community text-mauve icon"></view>
-          <text class="text">反馈社区</text>
-        </view> -->
+
         <view class="mine-actions">
           <view style="display: flex; justify-content: space-between">
             <text class="mine-text">我的订单</text>
@@ -76,8 +64,7 @@
               <u-icon :name="`${imgBasePath}/static/images/icons/icon-order-pay.png`" size="36"></u-icon>
               <text class="text">待付款</text>
             </view>
-            <view class="action-item" @click="handleShop('/pages/mine/order/index?type=waiting_delivery')">
-              <!-- <u-badge type="error" max="99" value="101" :offset="[-3, 13]" :absolute="true"></u-badge> -->
+             <view class="action-item" @click="handleShop('/pages/mine/order/index?type=waiting_delivery')">
               <u-icon :name="`${imgBasePath}/static/images/icons/icon-order-package.png`" size="36">
               </u-icon>
               <text class="text">待发货</text>
@@ -98,49 +85,28 @@
           <text class="mine-text">更多功能</text>
           <view class="grid col-4 text-center">
             <view class="action-item" @click="handleShop('/pages/productList/receipt')">
-              <u-icon :name="`${imgBasePath}/static/images/icons/icon-addressbook.png`" size="36"></u-icon>
+              <u-icon :name="`${imgBasePath}/static/images/icons/icon-my-address.png`" size="36"></u-icon>
               <text class="text">地址管理</text>
             </view>
-            <view class="action-item" @click="handleLogout">
-              <image style="width:36px;height:36px" src="@/static/images/out.png"></image>
+            <view class="action-item" @click="handleShop('/pages/mine/order/saleService')">
+              <image style="width:36px;height:36px" :src="`${imgBasePath}/static/images/icons/icon-my-complaint.png`"></image>
+              <text class="text">售后服务</text>
+            </view>
+
+            <view class="action-item" @click="handleLogout('logout')">
+              <image style="width:36px;height:36px" :src="`${imgBasePath}/static/images/icons/icon-my-service.png`"></image>
               <text class="text">退出登录</text>
             </view>
           </view>
         </view>
       </view>
-
-      <!-- <view class="menu-list">
-        <view class="list-cell list-cell-arrow" @click="handleToEditInfo">
-          <view class="menu-item-box">
-            <view class="iconfont icon-user menu-icon"></view>
-            <view>编辑资料</view>
-          </view>
-        </view>
-        <view class="list-cell list-cell-arrow" @click="handleHelp">
-          <view class="menu-item-box">
-            <view class="iconfont icon-help menu-icon"></view>
-            <view>常见问题</view>
-          </view>
-        </view>
-        <view class="list-cell list-cell-arrow" @click="handleAbout">
-          <view class="menu-item-box">
-            <view class="iconfont icon-aixin menu-icon"></view>
-            <view>关于我们</view>
-          </view>
-        </view>
-        <view class="list-cell list-cell-arrow" @click="handleToSetting">
-          <view class="menu-item-box">
-            <view class="iconfont icon-setting menu-icon"></view>
-            <view>应用设置</view>
-          </view>
-        </view>
-      </view> -->
     </view>
   </view>
 </template>
 
 <script>
 import storage from '@/utils/storage'
+import AfterSales from './order/afterSales.vue'
 
 export default {
   data() {
@@ -160,13 +126,25 @@ export default {
     },
   },
   methods: {
-    handleLogout() {
-      this.$modal.confirm('确定注销并退出系统吗？').then(() => {
-        this.$store.dispatch('LogOut').then(() => {
-          this.$tab.reLaunch('/pages/login')
+    handleLogout(text) {
+      if (text == 'logout') {
+        this.$modal.confirm('确定退出登录吗？').then(() => {
+          this.$store.dispatch('LogOut').then(() => {
+            this.$tab.reLaunch('/pages/login')
+          })
         })
-      })
+      } else if ((text = 'cancelAccount')) {
+        this.$modal.confirm('确定注销账号吗？').then(() => {
+          //  this.$store.dispatch('LogOut').then(() => {
+          // this.$tab.reLaunch('/pages/login')
+          //  })
+          this.$modal.showToast(
+              '注销申请已发起，将在接下来的一至三天内完成整个流程。'
+          )
+        })
+      }
     },
+    afterSales() {},
     // handleToInfo() {
     //   this.$tab.navigateTo("/pages/mine/info/index");
     // },
@@ -182,23 +160,6 @@ export default {
     handleToAvatar() {
       this.$tab.navigateTo('/pages/mine/avatar/index')
     },
-    handleLogout() {
-      this.$modal.confirm('确定注销并退出系统吗？').then(() => {
-        this.$store.dispatch('LogOut').then(() => {
-          this.$tab.reLaunch('/pages/index')
-        })
-      })
-    },
-    // handleHelp() {
-    //   this.$tab.navigateTo("/pages/mine/help/index");
-    // },
-    // handleAbout() {
-    //   this.$tab.navigateTo("/pages/mine/about/index");
-    // },
-    // handleJiaoLiuQun() {
-    //   this.$modal.showToast("QQ群：133713780");
-    // },
-    // handleBuilding() {},
     handleShop(url) {
       this.$tab.navigateTo(url)
     },
@@ -226,7 +187,8 @@ page {
   background-position: 0 0;
 
   .header-section {
-    padding: 5px 15px 45px 15px;
+    // padding: 5px 15px 45px 15px;
+    padding: 54px 14px 34rpx 60rpx;
     // color: white;
 
     .header-title {
@@ -267,9 +229,9 @@ page {
 
   .content-section {
     position: relative;
-    top: -50px;
+    // top: -50px;
     .main-modelOne {
-      margin: 15px 15px;
+      margin: 0 15px;
 
       .mine-actionsOne {
         // margin: 15px 15px;
@@ -356,6 +318,7 @@ page {
 
           .text {
             width: 56px;
+            padding-top: 15rpx;
             height: 20px;
             font-size: 14px;
             font-family: PingFangSC, PingFang SC;
